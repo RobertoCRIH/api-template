@@ -38,6 +38,27 @@ app.post("/api/insert",(req,res)=>{
     });
 })
 
+//This is meant to delete the entry
+app.delete('/api/delete/:movieName',(req,res)=>{
+    const name = req.params.movieName;
+    const sqlDel = "DELETE FROM movies WHERE movieName = ?";
+
+    db.query(sqlDel,name, (err,result)=>{
+        if(err) console.log(err);
+    });
+})
+
+//This is the update button
+app.put('/api/update',(req,res)=>{
+    const name = req.body.movieName;
+    const review = req.body.movieReview;
+    const sqlUpdate = "UPDATE movies SET movieReview = ? WHERE movieName = ?";
+
+    db.query(sqlUpdate,[review,name], (err,result)=>{
+        if(err) console.log(err);
+    });
+})
+
 app.listen(3001, ()=>{
     console.log("Running on port 3001")
 })
